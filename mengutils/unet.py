@@ -67,20 +67,20 @@ class UNet:
 
         return model
 
-    def train(self, train_set, test_set, epochs = 100000, batch_size = 4, save_interval = 100):
-        X_train = train_set['data']
-        Y_train = train_set['label']
-        x_test = test_set['data']
-        y_test = test_set['label']
+    def train(self, train_set, data_mode, label_mode, test_set, epochs = 100, batch_size = 4, save_interval = 10):
+        X_train = train_set[data_mode]
+        Y_train = train_set[label_mode]
+        x_test = test_set[data_mode]
+        y_test = test_set[label_mode]
         self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size)
         if not os.path.exists('saved_models'):
             os.makedir('saved_models')
-        self.model.save_weights('saved_models/final_unet.hdf5', True)
+        self.model.save_weights('saved_models/model_for_%s_unet.hdf5' %(data_mode), True)
     
     def evaluate(self, test_result, test_gt):
         return 
     
-    def test(self, test_set, model_path, evaluate = None, test_gt = None,):
+    def test(self, test_set, model_path, evaluate = None, test_gt = None):
         self.model = load_model(model_path)
         test_set = np.resize(test_set, (test_set.shape[0], test_set[0].shape[1], test_set[0].shape[2], test_set[0].shape[3], 1))
         test_result = self.model.predict(test_set)

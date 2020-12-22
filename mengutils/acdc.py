@@ -10,7 +10,7 @@ import SimpleITK as sitk
 import skimage.io as skio
 from skimage.transform import resize
 import numpy as np
-from tonpy import SaveDataset
+from mengutils.tonpy import SaveDataset
 
 class LoadACDC():
     def __init__(self, data_dir, mode_list):

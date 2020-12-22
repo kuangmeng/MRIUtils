@@ -6,7 +6,7 @@ Created on Tue Dec 15 01:12:02 2020
 @author: kuangmeng
 """
 
-from keras.layers import Concatenate, LeakyReLU, Conv3D, UpSampling3D, Input, BatchNormalization, MaxPooling3D, LSTM
+from keras.layers import Concatenate, LeakyReLU, Conv3D, UpSampling3D, Input, BatchNormalization, MaxPooling3D, LSTM, Multiply
 from keras.models import Model
 from keras.optimizers import Adam
 import numpy as np
@@ -14,7 +14,7 @@ import os
 from skimage.transform import resize
 
 
-class UNet3D():
+class UNet3D_Atten():
     def __init__(self, input_shape):
         self.input_shape = input_shape
         self.layers = input_shape[0]
@@ -50,12 +50,11 @@ class UNet3D():
         meg4 = LeakyReLU()(conv4)
         conv4 = MaxPooling3D(pool_size=(1, 2, 2))(meg4)
 
-        conv5 = Conv3D(kernel_size = (1, 1, 1), padding = 'same', filters = 1024)(conv4)
-        conv5 = BatchNormalization()(conv5)
-        conv5 = LeakyReLU()(conv5)
+        atten_in = conv4
+        atten_probs = Conv3D(kernel_size = (1, 1, 1), padding = 'same', filters = 1024)(conv4)
+        atten_out = Multiply()([atten_in, atten_probs])        
         
-        
-        up1 = UpSampling3D(size = (1, 2, 2))(conv5)
+        up1 = UpSampling3D(size = (1, 2, 2))(atten_out)
         up1 = Conv3D(kernel_size = (3, 3, 3), padding = 'same', filters = 512)(up1)
         up1 = BatchNormalization()(up1)
         up1 = LeakyReLU()(up1)

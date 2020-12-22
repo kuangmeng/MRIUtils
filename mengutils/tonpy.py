@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
-    
+
+import os
+import SimpleITK as sitk
+import skimage.io as skio
+from skimage.transform import resize
+import numpy as np
+
 class SaveDataset():
     def __init__(self, data_set, data_type, save_path, new_shape):
         self.data_type = data_type
@@ -19,16 +25,25 @@ class SaveDataset():
         np.save(os.path.join(self.save_path, self.save_file), self.data)
         
     def readSingleNiiFile(self, nii_path):
-        img = sitk.ReadImage(nii_path)
-        data = sitk.GetArrayFromImage(img)
-        return data
+        if 'nii' in nii_path:
+            img = sitk.ReadImage(nii_path)
+            data = sitk.GetArrayFromImage(img)
+            return data
+        else:
+            return []
     
-    def showSingleMRI(self, data, frame):
-        skio.imshow(data[frame], cmap = 'gray')
+    def showSingleMRI(self, no, frame):
+        skio.imshow(self.data[int(no)][int(frame)], cmap = 'gray')
         skio.show()
 
     def resizeData(self, data, new_shape = (10, 256, 256), order = 3):
-        data = resize(data, new_shape, order = order, mode='edge')
-        data -= data.mean()
-        data /= data.std()
+        print(data.shape)
+        if len(data) > 0:
+            data = resize(data, new_shape, order = order, mode='edge')
+            # data -= data.mean()
+            # data /= data.std()
         return data
+    
+    
+    
+    
