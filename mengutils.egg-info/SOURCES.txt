@@ -8,6 +8,7 @@ mengutils/logs.py
 mengutils/metrics.py
 mengutils/mrbrains.py
 mengutils/plots.py
+mengutils/pngs.py
 mengutils/timer.py
 mengutils/tonii.py
 mengutils/tonpy.py

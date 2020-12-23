@@ -12,4 +12,5 @@ __all__ = ['acdc',
             'brats', 
             'metrics',
             'tonii',
+            'pngs',
             'mrbrains']
