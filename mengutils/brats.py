@@ -6,16 +6,22 @@ Created on Mon Dec 14 22:42:15 2020
 @author: kuangmeng
 """
 import os
+import platform
 
 class LoadBraTS():
     def __init__(self, data_dir, mode_list):
         self.data_dir = data_dir
         self.mode_list = mode_list
         self.data_set = []
-    
+        self.sysstr = platform.system()
+
     def readSingleItem(self, item_path):
         file_dict = {}
-        item_name = item_path.split('/')[-1] if len(item_path.split('/')[-1]) > 0 else item_path.split('/')[-2]
+        item_name = ''
+        if self.sysstr == 'Windows':
+            item_name = item_path.split('\\')[-1] if len(item_path.split('\\')[-1]) > 0 else item_path.split('\\')[-2]
+        else:
+            item_name = item_path.split('/')[-1] if len(item_path.split('/')[-1]) > 0 else item_path.split('/')[-2]
         for i in range(len(self.mode_list)):
             file_name = os.path.join(item_path, item_name + '_%s' % (self.mode_list[i]) + '.nii.gz')
             if os.path.exists(file_name):
