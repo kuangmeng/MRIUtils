@@ -37,7 +37,6 @@ class SaveDataset():
         skio.show()
 
     def resizeData(self, data, new_shape = (10, 256, 256), order = 3):
-        print(data.shape)
         if len(data) > 0:
             data = resize(data, new_shape, order = order, mode='edge')
             # data -= data.mean()

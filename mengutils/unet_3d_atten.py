@@ -6,13 +6,14 @@ Created on Tue Dec 15 01:12:02 2020
 @author: kuangmeng
 """
 
-from keras.layers import Concatenate, LeakyReLU, Conv3D, UpSampling3D, Input, BatchNormalization, MaxPooling3D, LSTM, Multiply
+from keras.layers import Concatenate, LeakyReLU, Conv3D, UpSampling3D, Input, BatchNormalization, MaxPooling3D, Multiply
 from keras.models import Model
 from keras.optimizers import Adam
 import numpy as np
 import os
-from skimage.transform import resize
-
+from keras.models import load_model
+from metrics import Metrics
+from tonii import SaveNiiFile
 
 class UNet3D_Atten():
     def __init__(self, input_shape):
@@ -97,32 +98,30 @@ class UNet3D_Atten():
         if not os.path.exists("saved_models"):
             os.makedirs("saved_models")
         self.model.save_weights("saved_models/model_for_%s_unet3d.hdf5" %(data_mode), True)
-        # for epoch in range(epochs):
-        #     # split = np.random.randint(0, X_train.shape[0], batch_size)
-        #     for i in range(X_train.shape[0] // batch_size):
-        #         x_train_batch = np.resize(X_train[i * batch_size: i * batch_size + batch_size], (batch_size, X_train[0].shape[0], X_train[0].shape[1], X_train[0].shape[2], 1))
-        #         y_train_batch = np.resize(Y_train[i * batch_size: i * batch_size + batch_size], (batch_size, Y_train[0].shape[0], Y_train[0].shape[1], Y_train[0].shape[2], 1))
-        #         loss = self.model.train_on_batch(x_train_batch, y_train_batch)
-        #         print('epoch %d, num %d, [loss: %f, acc: %f]'%(epoch, i, loss[0], loss[1]))
-        #     if epoch % save_interval == 0:
-        #         if not os.path.exists("saved_models"):
-        #             os.makedirs("saved_models")
-        #         self.model.save_weights("saved_models/epoch%06d.hdf5" % epoch, True)
+
+    def evaluate(self, pred_dir, gt_dir):
+        metrics = Metrics()
+        metrics.metrics_on_dir(gt_dir, pred_dir)
         
-    def evaluate(self, test_result, test_gt):
-        return 
-    
-    def test(self, test_set, model_path, evaluate = None, test_gt = None):
+    def test(self, test_dir, predict_dir, model_path, evaluate = None, test_gt_dir = None):
         self.model = load_model(model_path)
+        test_files = os.listdir(test_dir)
+        nii_file = SaveNiiFile()
+        test_set = []
+        for file in test_files:
+            if file[0] != '.':
+                test_data, _, _ = nii_file.load_nii(os.path.join(test_dir, file))
+                test_set.append(test_data)
         test_set = np.resize(test_set, (test_set.shape[0], test_set[0].shape[1], test_set[0].shape[2], test_set[0].shape[3], 1))
         test_result = self.model.predict(test_set)
+        for i in range(len(test_files)):
+            nii_file.save_nii(test_result[i], os.path.join(predict_dir, test_files[1]))
         if evaluate != None:
-            self.evaluate(test_result, test_gt)
-        
+            self.evaluate(predict_dir, test_gt_dir)
         return test_result
 
 if __name__ == "__main__":
-    unet_3d = UNet3D((4, 128, 128, 1))
+    unet_3d = UNet3D_Atten((4, 128, 128, 1))
     from preprocessing import LoadData
     npy_dir = './processed'
     ld = LoadData(npy_dir)

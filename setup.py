@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mengutils", # Replace with your own username
-    version="1.0.1",
+    version="1.0.3",
     author="Mengmeng Kuang",
     author_email="kuangmeng@msn.com",
     description="A simple common utils and neural networks package",

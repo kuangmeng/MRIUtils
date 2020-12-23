@@ -5,9 +5,11 @@ mengutils/acdc.py
 mengutils/brats.py
 mengutils/load_data.py
 mengutils/logs.py
+mengutils/metrics.py
 mengutils/mrbrains.py
 mengutils/plots.py
 mengutils/timer.py
+mengutils/tonii.py
 mengutils/tonpy.py
 mengutils/unet.py
 mengutils/unet_3d.py
