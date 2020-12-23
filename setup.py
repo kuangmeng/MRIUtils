@@ -6,9 +6,9 @@ readme = 'README.md'
 
 setuptools.setup(
     name="mengutils",
-    version="1.1.1",
+    version="1.1.2",
     author="Mengmeng Kuang",
-    keywords=("MRI", "ACDC", "MengUtils", "UNet", "BraTS", "MRBrainS", ".nii", ".npy", "UNet3D", "Attention"),
+    keywords="MRI Analysis",
     author_email="kuangmeng@msn.com",
     description="A simple common utils and models package",
     long_description=open(readme, 'r').read(),
@@ -22,6 +22,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        "Topic :: Utilities"
     ],
     python_requires='>=3.7',
 )

@@ -1,8 +1,6 @@
-# MengUtils
-
 A simple common utils and models package for MRI analysis.
 
-## Functions implemented
+## Functions implemented in MengUtils
 
 ### Datasets
 

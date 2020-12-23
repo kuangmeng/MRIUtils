@@ -1,16 +1,14 @@
 Metadata-Version: 2.1
 Name: mengutils
-Version: 1.1.1
+Version: 1.1.2
 Summary: A simple common utils and models package
 Home-page: https://github.com/kuangmeng/MengUtils
 Author: Mengmeng Kuang
 Author-email: kuangmeng@msn.com
 License: UNKNOWN
-Description: # MengUtils
+Description: A simple common utils and models package for MRI analysis.
         
-        A simple common utils and models package for MRI analysis.
-        
-        ## Functions implemented
+        ## Functions implemented in MengUtils
         
         ### Datasets
         
@@ -41,10 +39,11 @@ Description: # MengUtils
         - Plot lines: `from mengutils.plots import Plots`
         
         
-Keywords: MRI,ACDC,MengUtils,UNet,BraTS,MRBrainS,.nii,.npy,UNet3D,Attention
+Keywords: MRI Analysis
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
+Classifier: Topic :: Utilities
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
