@@ -2,19 +2,22 @@
 
 import setuptools
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+readme = 'README.md'
 
 setuptools.setup(
-    name="mengutils", # Replace with your own username
-    version="1.0.5",
+    name="mengutils",
+    version="1.1.1",
     author="Mengmeng Kuang",
+    keywords=("MRI", "ACDC", "MengUtils", "UNet", "BraTS", "MRBrainS", ".nii", ".npy", "UNet3D", "Attention"),
     author_email="kuangmeng@msn.com",
-    description="A simple common utils and neural networks package",
-    long_description=long_description,
+    description="A simple common utils and models package",
+    long_description=open(readme, 'r').read(),
     long_description_content_type="text/markdown",
     url="https://github.com/kuangmeng/MengUtils",
     packages=setuptools.find_packages(),
+    data_files=[readme],
+    install_requires=["requests"],
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

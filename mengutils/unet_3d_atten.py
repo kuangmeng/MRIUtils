@@ -12,8 +12,8 @@ from keras.optimizers import Adam
 import numpy as np
 import os
 from keras.models import load_model
-from metrics import Metrics
-from tonii import SaveNiiFile
+from mengutils.metrics import Metrics
+from mengutils.tonii import SaveNiiFile
 
 class UNet3D_Atten():
     def __init__(self, input_shape):

@@ -18,4 +18,5 @@ mengutils/unet_3d_atten.py
 mengutils.egg-info/PKG-INFO
 mengutils.egg-info/SOURCES.txt
 mengutils.egg-info/dependency_links.txt
+mengutils.egg-info/requires.txt
 mengutils.egg-info/top_level.txt

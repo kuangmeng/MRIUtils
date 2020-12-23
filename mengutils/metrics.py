@@ -8,7 +8,6 @@ from medpy.metric.binary import dc
 import numpy as np
 import sys
 
-
 class Metrics():
     def __init__(self,):
         self.header = ["Name", "Dice LV", "Volume LV", "Err LV(ml)",
