@@ -5,15 +5,15 @@ import setuptools
 readme = 'README.md'
 
 setuptools.setup(
-    name="mengutils",
-    version="1.2.0",
+    name="mriutils",
+    version="1.2.1",
     author="Mengmeng Kuang",
     keywords="MRI-Analysis",
     author_email="kuangmeng@msn.com",
     description="A simple common utils and models package",
     long_description=open(readme, 'r').read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/kuangmeng/MengUtils",
+    url="https://github.com/kuangmeng/MRIUtils",
     packages=setuptools.find_packages(),
     data_files=[readme],
     install_requires=["requests"],

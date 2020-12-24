@@ -20,8 +20,7 @@ class UNet:
         self.model = self.structure()
         self.model.compile(optimizer = Adam(lr = 1e-5), 
                                             loss = 'binary_crossentropy', 
-                                            metrics = ['accuracy'],
-                                            callbacks = [early_stopping])
+                                            metrics = ['accuracy'])
 
     def structure(self):
         inputs = Input(self.input_shape)
@@ -83,7 +82,7 @@ class UNet:
         Y_train = Normalization(Y_train, 'label').norm()
         x_test = Normalization(x_test, 'train').norm()
         y_test = Normalization(y_test, 'label').norm()
-        self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size)
+        self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size, callbacks = [early_stopping])
         if not os.path.exists('saved_models'):
             os.makedir('saved_models')
         self.model.save_weights('saved_models/model_for_%s_unet.hdf5' %(data_mode), True)

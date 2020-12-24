@@ -12,15 +12,13 @@ from keras.optimizers import Adam
 import numpy as np
 import os
 from keras.models import load_model
-from mengutils.metrics import Metrics
-from mengutils.tonii import SaveNiiFile
-from mengutils.norm import Normalization
+from mriutils.metrics import Metrics
+from mriutils.tonii import SaveNiiFile
 from keras.callbacks import EarlyStopping
 
 early_stopping = EarlyStopping(monitor='val_loss',patience=3)
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 class UNet3D_Atten():
     def __init__(self, input_shape):
@@ -32,8 +30,7 @@ class UNet3D_Atten():
         self.model = self.structure()
         self.model.compile(optimizer = Adam(lr = 1e-5), 
                            loss = 'binary_crossentropy', 
-                           metrics = ['accuracy'],
-                           callbacks = [early_stopping])
+                           metrics = ['accuracy'])
         
     def structure(self):
         inputs = Input(self.input_shape)
@@ -48,6 +45,7 @@ class UNet3D_Atten():
         meg2 = LeakyReLU()(conv2)
         conv2 = MaxPooling3D(pool_size=(1, 2, 2))(meg2)
 
+        
         conv3 = Conv3D(kernel_size = (3, 3, 3), padding = 'same', filters = 512)(conv2)
         conv3 = BatchNormalization()(conv3)
         meg3 = LeakyReLU()(conv3)
@@ -105,10 +103,10 @@ class UNet3D_Atten():
         Y_train = Normalization(Y_train, 'label').norm()
         x_test = Normalization(x_test, 'train').norm()
         y_test = Normalization(y_test, 'label').norm()
-        self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size)
+        self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size, callbacks = [early_stopping])
         if not os.path.exists("saved_models"):
             os.makedirs("saved_models")
-        self.model.save_weights("saved_models/model_for_%s_unet3d_atten_gpus.hdf5" %(data_mode), True)
+        self.model.save_weights("saved_models/model_for_%s_unet3d.hdf5" %(data_mode), True)
 
     def evaluate(self, pred_dir, gt_dir):
         metrics = Metrics()

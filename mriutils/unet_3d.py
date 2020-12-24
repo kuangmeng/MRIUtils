@@ -12,8 +12,8 @@ from keras.optimizers import Adam
 import numpy as np
 import os
 from keras.models import load_model
-from mengutils.metrics import Metrics
-from mengutils.tonii import SaveNiiFile
+from mriutils.metrics import Metrics
+from mriutils.tonii import SaveNiiFile
 from keras.callbacks import EarlyStopping
 
 early_stopping = EarlyStopping(monitor='val_loss',patience=3)
@@ -30,8 +30,7 @@ class UNet3D():
         self.model = self.structure()
         self.model.compile(optimizer = Adam(lr = 1e-5), 
                            loss = 'binary_crossentropy', 
-                           metrics = ['accuracy'],
-                           callbacks = [early_stopping])
+                           metrics = ['accuracy'])
         
     def structure(self):
         inputs = Input(self.input_shape)
@@ -105,7 +104,7 @@ class UNet3D():
         Y_train = Normalization(Y_train, 'label').norm()
         x_test = Normalization(x_test, 'train').norm()
         y_test = Normalization(y_test, 'label').norm()
-        self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size)
+        self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size, callbacks = [early_stopping])
         if not os.path.exists("saved_models"):
             os.makedirs("saved_models")
         self.model.save_weights("saved_models/model_for_%s_unet3d.hdf5" %(data_mode), True)
