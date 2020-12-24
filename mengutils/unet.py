@@ -6,6 +6,7 @@ from keras.optimizers import Adam
 import numpy as np
 import os
 from keras.models import load_model
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class UNet:
     def __init__(self, input_shape = (256, 256, 1), pretrained_weights = None):

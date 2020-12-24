@@ -6,9 +6,9 @@ readme = 'README.md'
 
 setuptools.setup(
     name="mengutils",
-    version="1.1.2",
+    version="1.1.4",
     author="Mengmeng Kuang",
-    keywords="MRI Analysis",
+    keywords="MRI-Analysis",
     author_email="kuangmeng@msn.com",
     description="A simple common utils and models package",
     long_description=open(readme, 'r').read(),
@@ -24,5 +24,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Topic :: Utilities"
     ],
-    python_requires='>=3.7',
+    python_requires='>=3.5',
 )

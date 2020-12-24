@@ -14,6 +14,7 @@ import os
 from keras.models import load_model
 from mengutils.metrics import Metrics
 from mengutils.tonii import SaveNiiFile
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class UNet3D():
     def __init__(self, input_shape):
