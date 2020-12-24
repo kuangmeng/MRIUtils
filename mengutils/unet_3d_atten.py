@@ -14,6 +14,10 @@ import os
 from keras.models import load_model
 from mengutils.metrics import Metrics
 from mengutils.tonii import SaveNiiFile
+from keras.callbacks import EarlyStopping
+
+early_stopping = EarlyStopping(monitor='val_loss',patience=3)
+
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class UNet3D_Atten():
@@ -26,7 +30,8 @@ class UNet3D_Atten():
         self.model = self.structure()
         self.model.compile(optimizer = Adam(lr = 1e-5), 
                            loss = 'binary_crossentropy', 
-                           metrics = ['accuracy'])
+                           metrics = ['accuracy'],
+                           callbacks = [early_stopping])
         
     def structure(self):
         inputs = Input(self.input_shape)

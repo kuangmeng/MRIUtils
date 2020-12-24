@@ -15,9 +15,11 @@ from keras.models import load_model
 from mengutils.metrics import Metrics
 from mengutils.tonii import SaveNiiFile
 from mengutils.norm import Normalization
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+from keras.callbacks import EarlyStopping
 
-#进行配置，使用60%的GPU
+early_stopping = EarlyStopping(monitor='val_loss',patience=3)
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 class UNet3D_Atten():
@@ -30,7 +32,8 @@ class UNet3D_Atten():
         self.model = self.structure()
         self.model.compile(optimizer = Adam(lr = 1e-5), 
                            loss = 'binary_crossentropy', 
-                           metrics = ['accuracy'])
+                           metrics = ['accuracy'],
+                           callbacks = [early_stopping])
         
     def structure(self):
         inputs = Input(self.input_shape)

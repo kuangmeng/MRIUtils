@@ -6,7 +6,7 @@ readme = 'README.md'
 
 setuptools.setup(
     name="mengutils",
-    version="1.1.12",
+    version="1.2.0",
     author="Mengmeng Kuang",
     keywords="MRI-Analysis",
     author_email="kuangmeng@msn.com",

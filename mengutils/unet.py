@@ -6,6 +6,11 @@ from keras.optimizers import Adam
 import numpy as np
 import os
 from keras.models import load_model
+from keras.callbacks import EarlyStopping
+
+early_stopping = EarlyStopping(monitor='val_loss',patience=3)
+
+
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class UNet:
@@ -15,7 +20,8 @@ class UNet:
         self.model = self.structure()
         self.model.compile(optimizer = Adam(lr = 1e-5), 
                                             loss = 'binary_crossentropy', 
-                                            metrics = ['accuracy'])
+                                            metrics = ['accuracy'],
+                                            callbacks = [early_stopping])
 
     def structure(self):
         inputs = Input(self.input_shape)
