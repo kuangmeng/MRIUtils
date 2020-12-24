@@ -8,7 +8,6 @@ from skimage.transform import resize
 import numpy as np
 from PIL import Image
 
-
 class SaveDataset():
     def __init__(self, data_set, data_type, save_path, new_shape):
         self.data_type = data_type

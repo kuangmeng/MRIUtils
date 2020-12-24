@@ -7,6 +7,7 @@ A simple common utils and models package for MRI analysis.
 - ACDC: `from mengutils.acdc import LoadACDC`
 - BraTS: `from mengutils.brats import LoadBraTS`
 - MRBrainS: `from mengutils.mrbrains import LoadMRBrainS`
+- H5 files: `from mengutils.ic_data import LoadH5`
 - Other `*.png` datasets: `from mengutils.pngs import LoadPNGS`
 
 ### Load and save Files
@@ -26,6 +27,7 @@ A simple common utils and models package for MRI analysis.
 
 ### Others
 
+- Normalization: `from mengutils.norm import Normalization`
 - Time related: `from mengutils.timer import Timer`
 - Print logs: `from mengutils.logs import Logs`
 - Plot lines: `from mengutils.plots import Plots`

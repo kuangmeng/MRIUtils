@@ -13,5 +13,7 @@ __all__ = ['acdc',
             'metrics',
             'tonii',
             'pngs',
+            'norm',
+            'ic_data',
             'unet_3d_atten_gpus',
             'mrbrains']

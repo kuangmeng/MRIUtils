@@ -19,13 +19,14 @@ class Normalization():
         self.sysstr = platform.system()
 
     def norm(self):
+        data = self.data
         if self.mode == 'data':
-            if np.max(self.data) > 1:
+            if np.max(data) > 1:
                 data /= 255
             data -= data.mean()
             data /= data.std() 
         elif self.mode == 'label':
-            if np.max(self.data) > 1:
+            if np.max(data) > 1:
                 data /= 255
             data[data > data.mean()] = 1
             data[data <= data.mean()] = 0

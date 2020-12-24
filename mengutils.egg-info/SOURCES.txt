@@ -3,6 +3,7 @@ setup.py
 mengutils/__init__.py
 mengutils/acdc.py
 mengutils/brats.py
+mengutils/ic_data.py
 mengutils/load_data.py
 mengutils/logs.py
 mengutils/metrics.py
