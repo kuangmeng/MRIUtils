@@ -69,11 +69,14 @@ class UNet:
         return model
 
     def train(self, train_set, data_mode, label_mode, test_set, epochs = 100, batch_size = 4, save_interval = 10):
-        X_train = np.resize(train_set[data_mode], (len(train_set[data_mode]),train_set[data_mode].shape[0], train_set[data_mode].shape[1], 1))
-        Y_train = np.resize(train_set[label_mode], (len(train_set[label_mode]),train_set[label_mode].shape[0], train_set[label_mode].shape[1], 1))
-        x_test = np.resize(test_set[data_mode], (len(test_set[data_mode]),test_set[data_mode].shape[0], test_set[data_mode].shape[1], 1))
-        y_test = np.resize(test_set[label_mode], (len(test_set[label_mode]),test_set[label_mode].shape[0], test_set[label_mode].shape[1], 1))
-
+        X_train = np.resize(train_set[data_mode], (len(train_set[data_mode]),train_set[data_mode][0].shape[0], train_set[data_mode][0].shape[1], 1))
+        Y_train = np.resize(train_set[label_mode], (len(train_set[label_mode]),train_set[label_mode][0].shape[0], train_set[label_mode][0].shape[1], 1))
+        x_test = np.resize(test_set[data_mode], (len(test_set[data_mode]),test_set[data_mode][0].shape[0], test_set[data_mode][0].shape[1], 1))
+        y_test = np.resize(test_set[label_mode], (len(test_set[label_mode]),test_set[label_mode][0].shape[0], test_set[label_mode][0].shape[1], 1))
+        X_train = Normalization(X_train, 'train').norm()
+        Y_train = Normalization(Y_train, 'label').norm()
+        x_test = Normalization(x_test, 'train').norm()
+        y_test = Normalization(y_test, 'label').norm()
         self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size)
         if not os.path.exists('saved_models'):
             os.makedir('saved_models')

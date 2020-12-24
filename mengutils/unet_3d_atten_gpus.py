@@ -14,7 +14,11 @@ import os
 from keras.models import load_model
 from mengutils.metrics import Metrics
 from mengutils.tonii import SaveNiiFile
+from mengutils.norm import Normalization
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
+#进行配置，使用60%的GPU
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 class UNet3D_Atten():
     def __init__(self, input_shape):
@@ -41,7 +45,6 @@ class UNet3D_Atten():
         meg2 = LeakyReLU()(conv2)
         conv2 = MaxPooling3D(pool_size=(1, 2, 2))(meg2)
 
-        
         conv3 = Conv3D(kernel_size = (3, 3, 3), padding = 'same', filters = 512)(conv2)
         conv3 = BatchNormalization()(conv3)
         meg3 = LeakyReLU()(conv3)
@@ -102,7 +105,7 @@ class UNet3D_Atten():
         self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size)
         if not os.path.exists("saved_models"):
             os.makedirs("saved_models")
-        self.model.save_weights("saved_models/model_for_%s_unet3d.hdf5" %(data_mode), True)
+        self.model.save_weights("saved_models/model_for_%s_unet3d_atten_gpus.hdf5" %(data_mode), True)
 
     def evaluate(self, pred_dir, gt_dir):
         metrics = Metrics()

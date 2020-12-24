@@ -13,4 +13,5 @@ __all__ = ['acdc',
             'metrics',
             'tonii',
             'pngs',
+            'unet_3d_atten_gpus',
             'mrbrains']

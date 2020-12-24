@@ -7,6 +7,7 @@ mengutils/load_data.py
 mengutils/logs.py
 mengutils/metrics.py
 mengutils/mrbrains.py
+mengutils/norm.py
 mengutils/plots.py
 mengutils/pngs.py
 mengutils/timer.py
@@ -15,6 +16,7 @@ mengutils/tonpy.py
 mengutils/unet.py
 mengutils/unet_3d.py
 mengutils/unet_3d_atten.py
+mengutils/unet_3d_atten_gpus.py
 mengutils.egg-info/PKG-INFO
 mengutils.egg-info/SOURCES.txt
 mengutils.egg-info/dependency_links.txt
