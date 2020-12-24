@@ -91,10 +91,10 @@ class UNet3D_Atten():
         return model
 
     def train(self, train_set, data_mode, label_mode, test_set, epochs = 15, batch_size = 8, save_interval = 5):
-        X_train = train_set[data_mode]
-        Y_train = train_set[label_mode]
-        x_test = test_set[data_mode]
-        y_test = test_set[label_mode]
+        X_train = np.resize(train_set[data_mode], (len(train_set[data_mode]),train_set[data_mode].shape[0], train_set[data_mode].shape[1], train_set[data_mode].shape[2], 1))
+        Y_train = np.resize(train_set[label_mode], (len(train_set[label_mode]),train_set[label_mode].shape[0], train_set[label_mode].shape[1], train_set[label_mode].shape[2], 1))
+        x_test = np.resize(test_set[data_mode], (len(test_set[data_mode]),test_set[data_mode].shape[0], test_set[data_mode].shape[1], test_set[data_mode].shape[2], 1))
+        y_test = np.resize(test_set[label_mode], (len(test_set[label_mode]),test_set[label_mode].shape[0], test_set[label_mode].shape[1], test_set[label_mode].shape[2], 1))
         self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size)
         if not os.path.exists("saved_models"):
             os.makedirs("saved_models")
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     ld = LoadData(npy_dir)
     ld.load_data_dict()
     train, test, _ = ld.data_split()
-    unet_3d.train(train, test)
+    unet_3d.train(train, 'ED', 'ED_GT', test)
         
         
         
