@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-import keras 
-from keras import backend as K
+import tensorflow.keras as keras
+from tensorflow.keras import backend as K
 
 class Loss:
-    def __init__(self, loss = None, customization = None):
+    def __init__(self, loss = '', customization = None):
         self.loss = keras.losses.CategoricalCrossentropy()
         if 'dice_iou' in loss:
             self.loss = self.dice_iou_loss

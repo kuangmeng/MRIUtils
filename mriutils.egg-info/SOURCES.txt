@@ -15,6 +15,8 @@ mriutils/datasets/lvmvm.py
 mriutils/datasets/mmwhs.py
 mriutils/datasets/mrbrains.py
 mriutils/datasets/pngs.py
+mriutils/examples/__init__.py
+mriutils/examples/test_cube_unet3d_lvmvm.py
 mriutils/metrics/__init__.py
 mriutils/metrics/segmentation.py
 mriutils/metrics/synthesis.py

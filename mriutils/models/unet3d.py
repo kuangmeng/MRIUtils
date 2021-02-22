@@ -10,8 +10,10 @@ from tensorflow.keras.layers import Concatenate, LeakyReLU, Conv3D, UpSampling3D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 import os
-from modules.losses import Loss
-from modules.metrics import Metric
+import sys
+sys.path.append(".")
+from .modules.losses import Loss
+from .modules.metrics import Metric
 import tensorflow as tf
 
 strategy = tf.distribute.MirroredStrategy()

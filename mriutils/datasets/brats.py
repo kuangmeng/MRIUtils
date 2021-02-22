@@ -7,8 +7,8 @@ Created on Mon Dec 14 22:42:15 2020
 """
 import os
 import platform
+import sys
 sys.path.append("..")
-from utils.tonpy import SaveDataset
 
 class LoadBraTS():
     def __init__(self, data_dir, mode_list):
@@ -39,21 +39,21 @@ class LoadBraTS():
                 self.data_set.append(self.readSingleItem(os.path.join(self.data_dir, item_path)))
         return self.data_set
     
-if __name__ == '__main__':
-    '''
-    seg - label
-    flair/t2 - data
-    '''
-    data_dir = './BraTS'
-    processed_dir = './processed/brats/'
-    mode_list = ['flair', 'seg', 't1', 't1ce', 't2']
-    from tonpy import SaveDataset
-    data_set = LoadBraTS(data_dir, mode_list).read()
-    for item in mode_list:
-        sd = SaveDataset(data_set, item, processed_dir, (155, 256, 256))
-        sd.make()
-        sd.save()
-        print(item)
+# if __name__ == '__main__':
+#     '''
+#     seg - label
+#     flair/t2 - data
+#     '''
+#     data_dir = './BraTS'
+#     processed_dir = './processed/brats/'
+#     mode_list = ['flair', 'seg', 't1', 't1ce', 't2']
+#     from tonpy import SaveDataset
+#     data_set = LoadBraTS(data_dir, mode_list).read()
+#     for item in mode_list:
+#         sd = SaveDataset(data_set, item, processed_dir, (155, 256, 256))
+#         sd.make()
+#         sd.save()
+#         print(item)
     
     
     

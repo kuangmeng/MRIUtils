@@ -10,8 +10,8 @@ import SimpleITK as sitk
 import skimage.io as skio
 from skimage.transform import resize
 import numpy as np
+import sys
 sys.path.append("..")
-from utils.tonpy import SaveDataset
 import platform
 
 class LoadMMWHS():
@@ -42,17 +42,17 @@ class LoadMMWHS():
             self.data_set.append(itemdict)
         return self.data_set
     
-if __name__ == '__main__':
-    data_dir = './MMWHS'
-    processed_dir = './processed/mmwhs'
-    mode_list = ['image', 'label']
-    data_set = LoadMMWHS(data_dir, mode_list).read()
-    print(len(data_set))
-    for item in mode_list:
-        sd = SaveDataset(data_set, item, processed_dir, (120, 128, 128))
-        sd.make()
-        sd.save()
-        print(item)
+# if __name__ == '__main__':
+#     data_dir = './MMWHS'
+#     processed_dir = './processed/mmwhs'
+#     mode_list = ['image', 'label']
+#     data_set = LoadMMWHS(data_dir, mode_list).read()
+#     print(len(data_set))
+#     for item in mode_list:
+#         sd = SaveDataset(data_set, item, processed_dir, (120, 128, 128))
+#         sd.make()
+#         sd.save()
+#         print(item)
     
     
     

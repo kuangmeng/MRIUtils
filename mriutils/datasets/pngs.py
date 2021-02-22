@@ -5,9 +5,8 @@ Created on Mon Dec 14 22:42:15 2020
 
 @author: kuangmeng
 """
-import os
+import os, sys
 sys.path.append("..")
-from utils.tonpy import SaveDataset
 
 class LoadPNGS():
     def __init__(self, data_dir):
@@ -23,13 +22,13 @@ class LoadPNGS():
         return dataset_list
     
 
-if __name__ == '__main__':
-    data_dir = './PNGS/training'
-    processed_dir = './processed'
-    data_set = LoadPNGS(data_dir).read()
-    sd = SaveDataset(data_set, 'train', processed_dir, (1, 256, 256))
-    sd.make_pngs()
-    sd.save()
+# if __name__ == '__main__':
+#     data_dir = './PNGS/training'
+#     processed_dir = './processed'
+#     data_set = LoadPNGS(data_dir).read()
+#     sd = SaveDataset(data_set, 'train', processed_dir, (1, 256, 256))
+#     sd.make_pngs()
+#     sd.save()
     
     
     

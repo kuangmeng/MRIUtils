@@ -5,3 +5,6 @@ __all__ = ['cube_unet3d',
            'unet',
            'modules.losses',
            'modules.metrics']
+
+from .modules import losses
+from .modules import metrics

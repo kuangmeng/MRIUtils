@@ -10,7 +10,6 @@ import h5py
 import numpy as np
 from skimage.transform import resize
 
-
 class LoadH5():
     def __init__(self, data_dir, save_path, new_shape = (50, 128, 128, 4)):
         self.data_dir = data_dir
@@ -54,10 +53,10 @@ class LoadH5():
         np.save(os.path.join(self.save_path, 'ic_label'), self.data['label'])
 
     
-if __name__ == '__main__':
-    lh5 = LoadH5('/Users/kuangmeng/Documents/SpyderProjects/mengutils/mengutils', './')
-    data = lh5.read()
-    lh5.save()
+# if __name__ == '__main__':
+#     lh5 = LoadH5('/Users/kuangmeng/Documents/SpyderProjects/mengutils/mengutils', './')
+#     data = lh5.read()
+#     lh5.save()
     
     
     

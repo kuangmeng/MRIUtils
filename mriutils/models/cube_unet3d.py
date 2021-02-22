@@ -11,8 +11,10 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 import os
 import tensorflow as tf
-from modules.losses import Loss
-from modules.metrics import Metric
+import sys
+sys.path.append(".")
+from .modules.losses import Loss
+from .modules.metrics import Metric
 strategy = tf.distribute.MirroredStrategy()
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 

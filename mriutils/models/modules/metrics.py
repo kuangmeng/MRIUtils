@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from keras import metrics
-from keras import backend as K
+from tensorflow.keras import metrics
+from tensorflow.keras import backend as K
 
 class Metric:
-    def __init__(self, metric = None, customization = None):
+    def __init__(self, metric = '', customization = None):
         self.metric = metrics.categorical_accuracy
         if 'dice' in metric:
             self.metric = self.dice_score

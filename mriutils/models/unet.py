@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
-from tensorlow.keras.layers import MaxPooling2D, Input, Conv2D, Dropout, UpSampling2D, Concatenate
+from tensorflow.keras.layers import MaxPooling2D, Input, Conv2D, Dropout, UpSampling2D, Concatenate
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 import os
-from modules.losses import Loss
-from modules.metrics import Metric
+from .modules.losses import Loss
+from .modules.metrics import Metric
 import tensorflow as tf
+import sys
+sys.path.append(".")
 
 strategy = tf.distribute.MirroredStrategy()
 
