@@ -1,26 +1,26 @@
 #!/usr/bin/env python
 
-from keras.layers import MaxPooling2D, Input, Conv2D, Dropout, UpSampling2D, Concatenate
-from keras.models import Model
-from keras.optimizers import Adam
-import numpy as np
+from tensorlow.keras.layers import MaxPooling2D, Input, Conv2D, Dropout, UpSampling2D, Concatenate
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
 import os
-from keras.models import load_model
-from keras.callbacks import EarlyStopping
+from modules.losses import Loss
+from modules.metrics import Metric
+import tensorflow as tf
 
-early_stopping = EarlyStopping(monitor='val_loss',patience=3)
-
+strategy = tf.distribute.MirroredStrategy()
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 class UNet:
-    def __init__(self, input_shape = (256, 256, 1), pretrained_weights = None):
+    def __init__(self, input_shape = (256, 256, 1), loss = None, metric = None, pretrained_weights = None):
         self.input_shape = input_shape
         self.pretrained_weights = pretrained_weights
-        self.model = self.structure()
-        self.model.compile(optimizer = Adam(lr = 1e-5), 
-                                            loss = 'binary_crossentropy', 
-                                            metrics = ['accuracy'])
+        with strategy.scope():
+            self.model = self.structure()
+            self.model.compile(optimizer = Adam(lr = 1e-5), 
+                                            loss = Loss(loss).loss, 
+                                            metrics = [Metric(metric).metric])
 
     def structure(self):
         inputs = Input(self.input_shape)
@@ -63,41 +63,8 @@ class UNet:
         conv9 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
         conv9 = Conv2D(2, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
         outputs = Conv2D(1, 1, activation = 'sigmoid')(conv9)
-
         model = Model(inputs, outputs)
-        
         model.summary()
-
         if(self.pretrained_weights):
-    	    model.load_weights(self.pretrained_weights)
-
+        	    model.load_weights(self.pretrained_weights)
         return model
-
-    def train(self, train_set, data_mode, label_mode, test_set, epochs = 100, batch_size = 4, save_interval = 10):
-        X_train = np.resize(train_set[data_mode], (len(train_set[data_mode]),train_set[data_mode][0].shape[0], train_set[data_mode][0].shape[1], 1))
-        Y_train = np.resize(train_set[label_mode], (len(train_set[label_mode]),train_set[label_mode][0].shape[0], train_set[label_mode][0].shape[1], 1))
-        x_test = np.resize(test_set[data_mode], (len(test_set[data_mode]),test_set[data_mode][0].shape[0], test_set[data_mode][0].shape[1], 1))
-        y_test = np.resize(test_set[label_mode], (len(test_set[label_mode]),test_set[label_mode][0].shape[0], test_set[label_mode][0].shape[1], 1))
-        X_train = Normalization(X_train, 'train').norm()
-        Y_train = Normalization(Y_train, 'label').norm()
-        x_test = Normalization(x_test, 'train').norm()
-        y_test = Normalization(y_test, 'label').norm()
-        self.model.fit(X_train, Y_train, validation_data = (x_test, y_test), epochs = epochs, batch_size = batch_size, callbacks = [early_stopping])
-        if not os.path.exists('saved_models'):
-            os.makedir('saved_models')
-        self.model.save_weights('saved_models/model_for_%s_unet.hdf5' %(data_mode), True)
-    
-    def evaluate(self, test_result, test_gt):
-        return 
-    
-    def test(self, test_set, model_path, evaluate = None, test_gt = None):
-        self.model = load_model(model_path)
-        test_set = np.resize(test_set, (test_set.shape[0], test_set[0].shape[1], test_set[0].shape[2], test_set[0].shape[3], 1))
-        test_result = self.model.predict(test_set)
-        if evaluate != None:
-            self.evaluate(test_result, test_gt)
-        
-        return test_result
-
-if __name__ == '__main__':
-    unet = UNet((256, 256, 1))

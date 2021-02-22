@@ -10,7 +10,8 @@ import SimpleITK as sitk
 import skimage.io as skio
 from skimage.transform import resize
 import numpy as np
-from mriutils.tonpy import SaveDataset
+sys.path.append("..")
+from utils.tonpy import SaveDataset
 import platform
 
 class LoadACDC():
@@ -56,11 +57,11 @@ class LoadACDC():
     
 if __name__ == '__main__':
     data_dir = './ACDC'
-    processed_dir = './processed_ACDC'
+    processed_dir = './processed/acdc'
     mode_list = ['ED', 'ED_GT', 'ES', 'ES_GT']
     data_set = LoadACDC(data_dir, mode_list).read()
     for item in mode_list:
-        sd = SaveDataset(data_set, item, processed_dir, (10, 256, 256))
+        sd = SaveDataset(data_set, item, processed_dir, (10, 128, 128))
         sd.make()
         sd.save()
         print(item)

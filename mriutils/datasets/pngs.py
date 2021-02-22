@@ -6,7 +6,8 @@ Created on Mon Dec 14 22:42:15 2020
 @author: kuangmeng
 """
 import os
-from mriutils.tonpy import SaveDataset
+sys.path.append("..")
+from utils.tonpy import SaveDataset
 
 class LoadPNGS():
     def __init__(self, data_dir):

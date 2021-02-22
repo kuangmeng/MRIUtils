@@ -13,7 +13,7 @@ class Plots():
         self.x_label = x_label
         self.y_label = y_label
 
-    def drawSingleLine(self):
+    def draw(self):
         line = plt.plot(self.x_val, self.y_val)
         x, y = self.x_range, self.y_range
         plt.plot(self.x_val, self.y_val)
