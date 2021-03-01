@@ -7,7 +7,7 @@ A simple common utils and models package for MRI analysis.
 
 ### Examples
 
-- CUBE-UNet3D for LVMVM dataset: `from mriutils.examples.test_cube_unet3d_lvmvm import Test`
+- CUBE-UNet3D for LVMVM dataset: `from mriutils.examples.test_ear3d_lvmvm import Test`
 
 ### Datasets
 
