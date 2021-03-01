@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: mriutils
-Version: 1.2.17
+Version: 1.2.18
 Summary: A simple common utils and models package
 Home-page: https://github.com/kuangmeng/MRIUtils
 Author: Mengmeng Kuang
@@ -15,7 +15,7 @@ Description: A simple common utils and models package for MRI analysis.
         
         ### Examples
         
-        - CUBE-UNet3D for LVMVM dataset: `from mriutils.examples.test_cube_unet3d_lvmvm import Test`
+        - CUBE-UNet3D for LVMVM dataset: `from mriutils.examples.test_ear3d_lvmvm import Test`
         
         ### Datasets
         

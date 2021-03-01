@@ -6,7 +6,7 @@ readme = 'README.md'
 
 setuptools.setup(
     name="mriutils",
-    version="1.2.17",
+    version="1.2.18",
     author="Mengmeng Kuang",
     keywords="MRI-Analysis",
     author_email="kuangmeng@msn.com",

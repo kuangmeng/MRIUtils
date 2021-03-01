@@ -25,13 +25,14 @@ __all__ = [ 'train',
             'models.ear3d',
             'models.unet3d',
             'models.unet',
+            'models.proximator_net',
             'models.modules.losses',
             'models.modules.metrics']
         
 from .datasets import acdc, brats, lvmvm, mmwhs, mrbrains, pngs
 from .utils import data, load_data, norm, plots, resize, show, timer, tonii, tonpy
 from .metrics import synthesis, segmentation
-from .models import cube_unet3d, unet, unet3d, ear3d
+from .models import cube_unet3d, unet, unet3d, ear3d, proximator_net
 from .models.modules import losses
 from .models.modules import metrics
 from .examples import test_ear3d_lvmvm

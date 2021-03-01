@@ -23,6 +23,7 @@ mriutils/metrics/synthesis.py
 mriutils/models/__init__.py
 mriutils/models/cube_unet3d.py
 mriutils/models/ear3d.py
+mriutils/models/proximator_net.py
 mriutils/models/unet.py
 mriutils/models/unet3d.py
 mriutils/models/modules/__init__.py
