@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 __all__ = ['cube_unet3d',
+           'ear3d',
            'unet3d',
            'unet',
            'modules.losses',

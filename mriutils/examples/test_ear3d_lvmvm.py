@@ -23,14 +23,14 @@ class Test:
         # label_shape = (50, 128, 128, 1)
         # channels = 4
         # n_classes = 2
-        # save_name = 'cube_unet3d_1000e_2b.hdf5'
+        # save_name = 'ear3d_1000e_2b.hdf5'
         # save_path = 'processed/lvmvm/pred/'
 
-        # [1] process data
-        from mriutils.datasets.lvmvm import LoadH5
-        lh5 = LoadH5(self.data_path, self.process_path)
-        data = lh5.read()
-        lh5.save()
+        # # [1] process data
+        # from mriutils.datasets.lvmvm import LoadH5
+        # lh5 = LoadH5(self.data_path, self.process_path)
+        # data = lh5.read()
+        # lh5.save()
 
         # [2] load data
         from mriutils.utils.load_data import LoadData
@@ -45,8 +45,8 @@ class Test:
         test = res.run()
 
         # [3] build the model
-        from mriutils.models.cube_unet3d import CUBE_UNet3D
-        model = CUBE_UNet3D(self.input_shape, model_level = 2, n_classes = 2, loss = 'dice', metric = 'dice')
+        from mriutils.models.ear3d import EAR3D
+        model = EAR3D(self.input_shape, model_level = 2, n_classes = 2, loss = 'dice', metric = 'dice')
 
         # [4] train the model
         from mriutils.train import Train

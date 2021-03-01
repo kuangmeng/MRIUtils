@@ -18,8 +18,8 @@ from .modules.metrics import Metric
 strategy = tf.distribute.MirroredStrategy()
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-class CUBE_UNet3D:
-    def __init__(self, input_shape, n_classes = 2, loss = None, metric = None, pretrained_weights = None):
+class EAR3D:
+    def __init__(self, input_shape, model_level = 2, n_classes = 2, loss = None, metric = None, pretrained_weights = None):
         self.input_shape = input_shape
         self.layers = input_shape[0]
         self.size = input_shape[1] * input_shape[2]
@@ -27,6 +27,7 @@ class CUBE_UNet3D:
         self.height = input_shape[2]
         self.channels = input_shape[3]
         self.n_classes = n_classes
+        self.model_level = model_level
         self.pretrained_weights = pretrained_weights
         with strategy.scope():
             self.model = self.structure()
@@ -35,6 +36,8 @@ class CUBE_UNet3D:
                            metrics = [Metric(metric).metric])
     
     def LSTMLayer(self, input_tensor):
+        if int(self.model_level) != 2:
+            return input_tensor
         old_shape = input_tensor.shape
         new_shape = (old_shape[1], old_shape[2] * old_shape[3] * old_shape[4])
         ret_shape = (old_shape[1], old_shape[2], old_shape[3], 1)
@@ -43,17 +46,14 @@ class CUBE_UNet3D:
         return Reshape(ret_shape)(whole_seq_output)
 
     def Atten(self, input_tensor):
+        if int(self.model_level) == 0:
+            return input_tensor
         cnn_layer = Conv3D(filters = input_tensor.shape[-1], kernel_size= (1, 3, 3), padding='same')
         query_encoding = cnn_layer(input_tensor)
         key_encoding = cnn_layer(input_tensor)
         query_value_attention = cnn_layer(Multiply()([query_encoding, key_encoding]))
         attention_score = tf.keras.activations.softmax(query_value_attention, axis = -1)
         return Multiply()([key_encoding, attention_score])
-
-    def cube_structure(self, input_tensor):
-        out1 = self.LSTMLayer(input_tensor)
-        out2 = self.Atten(input_tensor)
-        return Multiply()([out1, out2])
 
     def structure(self):
         inputs = Input(self.input_shape)
@@ -80,15 +80,12 @@ class CUBE_UNet3D:
         conv4 = Conv3D(kernel_size = (3, 3, 3), padding = 'same', filters = 512)(conv4)
         conv4 = BatchNormalization()(conv4)
         meg4 = LeakyReLU()(conv4)
-        meg4 = self.cube_structure(meg4)
+        meg4 = self.LSTMLayer(meg4)
         conv4 = MaxPooling3D(pool_size=(1, 2, 2))(meg4)
         flat = Conv3D(kernel_size = (1, 1, 1), padding = 'same', filters = 512)(conv4)
-        flat = self.cube_structure(flat)
         up1 = UpSampling3D(size = (1, 2, 2))(flat)
         meg4 = self.Atten(meg4)
         up1 = Concatenate(axis = -1)([meg4,up1])
-        up1 = Conv3D(kernel_size = (1, 1, 1), padding = 'same', filters = 512)(up1)
-        up1 = self.cube_structure(up)
         up1 = Conv3D(kernel_size = (3, 3, 3), padding = 'same', filters = 256)(up1)
         up1 = BatchNormalization()(up1)
         up1 = self.LSTMLayer(up1)

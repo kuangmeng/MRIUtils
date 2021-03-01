@@ -16,12 +16,13 @@ mriutils/datasets/mmwhs.py
 mriutils/datasets/mrbrains.py
 mriutils/datasets/pngs.py
 mriutils/examples/__init__.py
-mriutils/examples/test_cube_unet3d_lvmvm.py
+mriutils/examples/test_ear3d_lvmvm.py
 mriutils/metrics/__init__.py
 mriutils/metrics/segmentation.py
 mriutils/metrics/synthesis.py
 mriutils/models/__init__.py
 mriutils/models/cube_unet3d.py
+mriutils/models/ear3d.py
 mriutils/models/unet.py
 mriutils/models/unet3d.py
 mriutils/models/modules/__init__.py

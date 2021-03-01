@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: mriutils
-Version: 1.2.16
+Version: 1.2.17
 Summary: A simple common utils and models package
 Home-page: https://github.com/kuangmeng/MRIUtils
 Author: Mengmeng Kuang
@@ -10,35 +10,47 @@ Description: A simple common utils and models package for MRI analysis.
         
         ## Functions implemented in MRIUtils
         
+        - Train: `from mriutils.train import Train`
+        - Test: `from mriutils.test import Test`
+        
+        ### Examples
+        
+        - CUBE-UNet3D for LVMVM dataset: `from mriutils.examples.test_cube_unet3d_lvmvm import Test`
+        
         ### Datasets
         
-        - ACDC: `from mriutils.acdc import LoadACDC`
-        - BraTS: `from mriutils.brats import LoadBraTS`
-        - MRBrainS: `from mriutils.mrbrains import LoadMRBrainS`
-        - H5 files: `from mriutils.ic_data import LoadH5`
-        - Other `*.png` datasets: `from mriutils.pngs import LoadPNGS`
+        - ACDC: `from mriutils.datasets.acdc import LoadACDC`
+        - BraTS: `from mriutils.datasets.brats import LoadBraTS`
+        - MRBrainS: `from mriutils.datasets.mrbrains import LoadMRBrainS`
+        - H5 files: `from mriutils.datasets.lvmvm import LoadH5`
+        - MMWHS: `from mriutils.datasets.mmwhs import LoadMMWHS`
+        - Other `*.png` datasets: `from mriutils.datasets.pngs import LoadPNGS`
         
-        ### Load and save Files
+        ### Utils
         
-        - `*.npy`: `from mriutils.tonpy import SaveDataset`
-        - `*.nii`/`*.nii.gz`: `from mriutils.tonii import SaveNiiFile`
+        - Save files:
+        	- `*.npy`: `from mriutils.utils.tonpy import SaveDataset`
+        	- `*.nii`/`*.nii.gz`: `from mriutils.utils.tonii import SaveNiiFile`
+        - Load and save single `*.npy`: `from mriutils.utils.data import Data`
+        - Load `*.npy` datasets: `from mriutils.utils.load_data import LoadData`
+        - Normalization: `from mriutils.utils.norm import Normalization`
+        - Resize: `from mriutils.utils.resize import Resize`
+        - Show single-layer single-channel images: `from mriutils.utils.show import Show`
+        - Plot lines: `from mriutils.utils.plots import Plots`
+        - Timer: `from mriutils.utils.timer import Timer`
         
         ### Models
         
-        - 2D-UNet: `from mriutils.unet import UNet`
-        - 3D-UNet: `from mriutils.unet_3d import UNet3D`
-        - 3D-UNet with Attention: `from mriutils.unet_3d_atten import UNet3D_Atten`
+        - 2D-UNet: `from mriutils.models.unet import UNet`
+        - 3D-UNet: `from mriutils.models.unet3d import UNet3D`
+        - CUBE-UNet3D: `from mriutils.models.cube_unet3d import CUBE_UNet3D`
+        - Losses: `from mriutils.models.modules.losses import Loss`
+        - Metrics: `from mriutils.models.modules.metrics import Metric`
         
         ### Metrics
         
-        - MRI Metrics: `from mriutils.metrics import Metrics`
-        
-        ### Others
-        
-        - Normalization: `from mriutils.norm import Normalization`
-        - Time related: `from mriutils.timer import Timer`
-        - Print logs: `from mriutils.logs import Logs`
-        - Plot lines: `from mriutils.plots import Plots`
+        - Metrics for MRI Segmentation: `from mriutils.metrics.segmentation import Segmentation`
+        - Metrics for MRI Synthesis: `from mriutils.metrics.synthesis import Synthesis`
         
         
 Keywords: MRI-Analysis
