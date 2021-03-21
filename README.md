@@ -17,6 +17,7 @@ A simple common utils and models package for MRI analysis.
 - H5 files: `from mriutils.datasets.lvmvm import LoadH5`
 - MMWHS: `from mriutils.datasets.mmwhs import LoadMMWHS`
 - Other `*.png` datasets: `from mriutils.datasets.pngs import LoadPNGS`
+- ...
 
 ### Utils
 
@@ -35,9 +36,11 @@ A simple common utils and models package for MRI analysis.
 
 - 2D-UNet: `from mriutils.models.unet import UNet`
 - 3D-UNet: `from mriutils.models.unet3d import UNet3D`
+- EAR3D: `from mriutils.models.ear3d import EAR3D`
 - CUBE-UNet3D: `from mriutils.models.cube_unet3d import CUBE_UNet3D`
 - Losses: `from mriutils.models.modules.losses import Loss`
 - Metrics: `from mriutils.models.modules.metrics import Metric`
+- ...
 
 ### Metrics
 
