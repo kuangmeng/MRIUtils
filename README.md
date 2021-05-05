@@ -47,3 +47,13 @@ A simple common utils and models package for MRI analysis.
 - Metrics for MRI Segmentation: `from mriutils.metrics.segmentation import Segmentation`
 - Metrics for MRI Synthesis: `from mriutils.metrics.synthesis import Synthesis`
 
+
+## Citation
+```
+@article{kuang2021three,
+  title={Three-Dimensional Embedded Attentive RNN (3D-EAR) Segmentor for Left Ventricle Delineation from Myocardial Velocity Mapping},
+  author={Kuang, Mengmeng and Wu, Yinzhe and Alonso-{\'A}lvarez, Diego and Firmin, David and Keegan, Jennifer and Gatehouse, Peter and Yang, Guang},
+  journal={arXiv preprint arXiv:2104.13214},
+  year={2021}
+}
+```
