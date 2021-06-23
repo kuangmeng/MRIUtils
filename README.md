@@ -50,10 +50,12 @@ A simple common utils and models package for MRI analysis.
 
 ## Citation
 ```
-@article{kuang2021three,
+@inproceedings{kuang2021three,
   title={Three-Dimensional Embedded Attentive RNN (3D-EAR) Segmentor for Left Ventricle Delineation from Myocardial Velocity Mapping},
   author={Kuang, Mengmeng and Wu, Yinzhe and Alonso-{\'A}lvarez, Diego and Firmin, David and Keegan, Jennifer and Gatehouse, Peter and Yang, Guang},
-  journal={arXiv preprint arXiv:2104.13214},
-  year={2021}
+  booktitle={International Conference on Functional Imaging and Modeling of the Heart},
+  pages={55--62},
+  year={2021},
+  organization={Springer}
 }
 ```
